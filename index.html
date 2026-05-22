@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Page Replacement Simulator</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
-
-</head>
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
   body {
     background: #f5f5f4;
     color: #1c1917;
@@ -18,31 +15,33 @@
     font-size: 15px;
     line-height: 1.6;
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
   }
- 
+
   .page {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
+    width: 100%;
+    max-width: 820px;
+    padding: 48px 32px 80px;
   }
- 
+
   /* HEADER */
   .header {
     margin-bottom: 32px;
   }
- 
+
   .header h1 {
     font-size: 22px;
     font-weight: 600;
     color: #1c1917;
     margin-bottom: 4px;
   }
- 
+
   .header p {
     font-size: 14px;
     color: #78716c;
   }
- 
+
   /* CARD */
   .card {
     background: #ffffff;
@@ -51,7 +50,7 @@
     padding: 24px;
     margin-bottom: 16px;
   }
- 
+
   .card-title {
     font-size: 13px;
     font-weight: 500;
@@ -60,23 +59,23 @@
     letter-spacing: 0.06em;
     margin-bottom: 18px;
   }
- 
+
   /* FORM */
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
   }
- 
+
   .form-field { display: flex; flex-direction: column; gap: 6px; }
   .form-field.span2 { grid-column: 1 / -1; }
- 
+
   label {
     font-size: 13px;
     font-weight: 500;
     color: #44403c;
   }
- 
+
   input[type="text"], input[type="number"] {
     border: 1px solid #d6d3d1;
     border-radius: 7px;
@@ -89,24 +88,24 @@
     transition: border-color 0.15s;
     width: 100%;
   }
- 
+
   input:focus { border-color: #a8a29e; background: #fff; }
   input.err { border-color: #ef4444; }
- 
+
   .err-msg {
     font-size: 12px;
     color: #ef4444;
     display: none;
   }
   .err-msg.show { display: block; }
- 
+
   /* ALGO TABS */
   .algo-tabs {
     display: flex;
     gap: 8px;
     margin-top: 4px;
   }
- 
+
   .algo-tab {
     flex: 1;
     padding: 10px 8px;
@@ -118,30 +117,30 @@
     transition: all 0.15s;
     font-family: 'Inter', sans-serif;
   }
- 
+
   .algo-tab:hover { border-color: #a8a29e; }
- 
+
   .algo-tab.active {
     background: #1c1917;
     border-color: #1c1917;
     color: #fff;
   }
- 
+
   .algo-tab .name {
     font-size: 14px;
     font-weight: 600;
     display: block;
   }
- 
+
   .algo-tab .desc {
     font-size: 11px;
     color: #78716c;
     display: block;
     margin-top: 2px;
   }
- 
+
   .algo-tab.active .desc { color: #a8a29e; }
- 
+
   /* BUTTONS */
   .btn-row {
     display: flex;
@@ -149,7 +148,7 @@
     margin-top: 20px;
     flex-wrap: wrap;
   }
- 
+
   .btn {
     padding: 9px 20px;
     border-radius: 7px;
@@ -160,20 +159,20 @@
     font-family: 'Inter', sans-serif;
     transition: all 0.15s;
   }
- 
+
   .btn-primary {
     background: #1c1917;
     color: #fff;
   }
   .btn-primary:hover { background: #292524; }
- 
+
   .btn-ghost {
     background: transparent;
     border: 1px solid #e7e5e4;
     color: #57534e;
   }
   .btn-ghost:hover { border-color: #a8a29e; color: #1c1917; }
- 
+
   /* STATS */
   .stats-grid {
     display: grid;
@@ -181,7 +180,7 @@
     gap: 12px;
     margin-bottom: 16px;
   }
- 
+
   .stat {
     background: #fafaf9;
     border: 1px solid #e7e5e4;
@@ -189,7 +188,7 @@
     padding: 16px;
     text-align: center;
   }
- 
+
   .stat-label {
     font-size: 12px;
     color: #78716c;
@@ -198,17 +197,17 @@
     letter-spacing: 0.05em;
     margin-bottom: 6px;
   }
- 
+
   .stat-value {
     font-size: 30px;
     font-weight: 600;
     font-family: 'JetBrains Mono', monospace;
   }
- 
+
   .stat-faults .stat-value { color: #dc2626; }
   .stat-hits .stat-value { color: #16a34a; }
   .stat-ratio .stat-value { color: #2563eb; }
- 
+
   /* ALGO INFO */
   .algo-info {
     background: #fafaf9;
@@ -223,17 +222,17 @@
     display: none;
   }
   .algo-info.show { display: block; }
- 
+
   /* TABLE */
   .table-scroll { overflow-x: auto; }
- 
+
   table {
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
     min-width: 460px;
   }
- 
+
   thead th {
     background: #fafaf9;
     color: #78716c;
@@ -246,11 +245,11 @@
     border-bottom: 1px solid #e7e5e4;
     white-space: nowrap;
   }
- 
+
   tbody tr { border-bottom: 1px solid #f5f5f4; }
   tbody tr:last-child { border-bottom: none; }
   tbody tr:hover { background: #fafaf9; }
- 
+
   td {
     padding: 9px 14px;
     text-align: center;
@@ -258,27 +257,27 @@
     font-size: 14px;
     color: #44403c;
   }
- 
+
   td.ref-num {
     font-weight: 500;
     color: #1c1917;
     font-size: 15px;
   }
- 
+
   td.new-page {
     color: #2563eb;
     font-weight: 500;
     background: #eff6ff;
   }
- 
+
   tr.is-hit { background: #f0fdf4; }
   tr.is-fault { background: #fff5f5; }
- 
+
   tr.is-hit:hover { background: #dcfce7; }
   tr.is-fault:hover { background: #fee2e2; }
- 
+
   td.empty-cell { color: #d6d3d1; }
- 
+
   .badge {
     display: inline-block;
     font-family: 'Inter', sans-serif;
@@ -290,7 +289,7 @@
   }
   .badge-hit { background: #dcfce7; color: #15803d; }
   .badge-fault { background: #fee2e2; color: #dc2626; }
- 
+
   /* LEGEND */
   .legend {
     display: flex;
@@ -302,13 +301,13 @@
     font-size: 12px;
     color: #78716c;
   }
- 
+
   .legend span { display: flex; align-items: center; gap: 6px; }
   .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .dot-hit { background: #16a34a; }
   .dot-fault { background: #dc2626; }
   .dot-new { background: #2563eb; }
- 
+
   @media (max-width: 580px) {
     .form-grid { grid-template-columns: 1fr; }
     .form-field.span2 { grid-column: 1; }
@@ -316,344 +315,245 @@
     .algo-tabs { flex-direction: column; }
   }
 </style>
-  
+</head>
 <body>
-<div class="container">
+<div class="page">
 
-  <header>
-    <div class="header-badge">Operating Systems · Memory Management</div>
-    <h1>PAGE REPLACEMENT<br><span>SIMULATOR</span></h1>
-    <p class="subtitle">FIFO &nbsp;·&nbsp; Optimal &nbsp;·&nbsp; LRU — Interactive Step-by-Step Analysis</p>
-  </header>
+  <div class="header">
+    <h1>Page Replacement Simulator</h1>
+    <p>FIFO · Optimal · LRU — step-by-step memory management simulation</p>
+  </div>
 
-  <!-- INPUT PANEL -->
-  <div class="panel">
-    <div class="panel-title">Configuration</div>
+  <div class="card">
+    <div class="card-title">Configuration</div>
 
-    <div class="input-grid">
-      <div class="input-group full">
-        <label>Reference String</label>
+    <div class="form-grid">
+      <div class="form-field span2">
+        <label for="refString">Reference string</label>
         <input type="text" id="refString" placeholder="e.g. 7 0 1 2 0 3 0 4 2 3 0 3 2" />
-        <span class="error-msg" id="refErr">Enter space-separated integers (at least 1)</span>
+        <span class="err-msg" id="refErr">Please enter space-separated page numbers.</span>
       </div>
-      <div class="input-group">
-        <label>Number of Frames</label>
+
+      <div class="form-field">
+        <label for="numFrames">Number of frames</label>
         <input type="number" id="numFrames" placeholder="e.g. 3" min="1" max="10" />
-        <span class="error-msg" id="frameErr">Enter a number between 1 and 10</span>
+        <span class="err-msg" id="frameErr">Enter a number between 1 and 10.</span>
       </div>
-      <div class="input-group">
+
+      <div class="form-field">
         <label>Algorithm</label>
-        <div class="algo-selector">
-          <button class="algo-btn active" data-algo="fifo">
-            FIFO
-            <span class="algo-sub">First-In, First-Out</span>
+        <div class="algo-tabs">
+          <button class="algo-tab active" data-algo="fifo">
+            <span class="name">FIFO</span>
+            <span class="desc">First-In, First-Out</span>
           </button>
-          <button class="algo-btn" data-algo="optimal">
-            OPT
-            <span class="algo-sub">Optimal</span>
+          <button class="algo-tab" data-algo="optimal">
+            <span class="name">OPT</span>
+            <span class="desc">Optimal</span>
           </button>
-          <button class="algo-btn" data-algo="lru">
-            LRU
-            <span class="algo-sub">Least Recently Used</span>
+          <button class="algo-tab" data-algo="lru">
+            <span class="name">LRU</span>
+            <span class="desc">Least Recently Used</span>
           </button>
         </div>
       </div>
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-primary" id="runBtn">▶ RUN SIMULATION</button>
-      <button class="btn btn-secondary" id="randomBtn">⟳ RANDOM STRING</button>
-      <button class="btn btn-secondary" id="clearBtn">✕ CLEAR</button>
+      <button class="btn btn-primary" id="runBtn">Run simulation</button>
+      <button class="btn btn-ghost" id="randomBtn">Random string</button>
+      <button class="btn btn-ghost" id="clearBtn">Clear</button>
     </div>
   </div>
 
-  <!-- RESULTS -->
-  <div id="resultsSection" style="display:none;" class="results-section">
+  <div id="resultsSection" style="display:none;">
 
     <div class="algo-info" id="algoInfo"></div>
 
-    <div class="stats-row">
-      <div class="stat-card faults">
-        <div class="stat-label">Page Faults</div>
+    <div class="stats-grid">
+      <div class="stat stat-faults">
+        <div class="stat-label">Page faults</div>
         <div class="stat-value" id="statFaults">—</div>
       </div>
-      <div class="stat-card hits">
-        <div class="stat-label">Page Hits</div>
+      <div class="stat stat-hits">
+        <div class="stat-label">Page hits</div>
         <div class="stat-value" id="statHits">—</div>
       </div>
-      <div class="stat-card ratio">
-        <div class="stat-label">Hit Ratio</div>
+      <div class="stat stat-ratio">
+        <div class="stat-label">Hit ratio</div>
         <div class="stat-value" id="statRatio">—</div>
       </div>
     </div>
 
-    <div class="panel">
-      <div class="panel-title">Step-by-Step Trace</div>
-      <div class="table-wrapper">
-        <table id="resultTable">
+    <div class="card">
+      <div class="card-title">Step-by-step trace</div>
+      <div class="table-scroll">
+        <table>
           <thead id="tableHead"></thead>
           <tbody id="tableBody"></tbody>
         </table>
       </div>
       <div class="legend">
-        <div class="legend-item"><div class="legend-dot hit"></div> Page Hit</div>
-        <div class="legend-item"><div class="legend-dot fault"></div> Page Fault</div>
-        <div class="legend-item"><div class="legend-dot new"></div> Newly Loaded Page</div>
+        <span><div class="dot dot-hit"></div> Page hit</span>
+        <span><div class="dot dot-fault"></div> Page fault</span>
+        <span><div class="dot dot-new"></div> Newly loaded</span>
       </div>
     </div>
   </div>
 
 </div>
-
 <script>
-// ===================== ALGORITHMS =====================
-
 function runFIFO(pages, nFrames) {
-  const frames = [];
-  const steps = [];
-  const queue = []; // FIFO order: front = oldest
-
+  const frames = [], steps = [], queue = [];
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i];
-    const frameBefore = [...frames];
-    let hit = frames.includes(page);
-    let replaced = null;
-    let loaded = null;
-
+    let hit = frames.includes(page), loaded = null, replaced = null;
     if (!hit) {
-      if (frames.length < nFrames) {
-        frames.push(page);
-      } else {
-        replaced = queue.shift();
-        const idx = frames.indexOf(replaced);
-        frames[idx] = page;
-      }
-      queue.push(page);
-      loaded = page;
+      if (frames.length < nFrames) { frames.push(page); }
+      else { replaced = queue.shift(); frames[frames.indexOf(replaced)] = page; }
+      queue.push(page); loaded = page;
     }
-
-    steps.push({
-      step: i + 1,
-      page,
-      frames: [...frames].concat(Array(nFrames - frames.length).fill(null)),
-      hit,
-      loaded,
-      replaced
-    });
+    steps.push({ step: i+1, page, frames: [...frames].concat(Array(nFrames-frames.length).fill(null)), hit, loaded, replaced });
   }
   return steps;
 }
 
 function runOptimal(pages, nFrames) {
-  const frames = [];
-  const steps = [];
-
+  const frames = [], steps = [];
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i];
-    let hit = frames.includes(page);
-    let replaced = null;
-    let loaded = null;
-
+    let hit = frames.includes(page), loaded = null, replaced = null;
     if (!hit) {
-      if (frames.length < nFrames) {
-        frames.push(page);
-      } else {
-        // Find the page used farthest in the future
-        let farthest = -1;
-        let evict = frames[0];
+      if (frames.length < nFrames) { frames.push(page); }
+      else {
+        let farthest = -1, evict = frames[0];
         for (const f of frames) {
-          const nextUse = pages.indexOf(f, i + 1);
-          if (nextUse === -1) { evict = f; break; }
-          if (nextUse > farthest) { farthest = nextUse; evict = f; }
+          const next = pages.indexOf(f, i+1);
+          if (next === -1) { evict = f; break; }
+          if (next > farthest) { farthest = next; evict = f; }
         }
-        replaced = evict;
-        frames[frames.indexOf(evict)] = page;
+        replaced = evict; frames[frames.indexOf(evict)] = page;
       }
       loaded = page;
     }
-
-    steps.push({
-      step: i + 1,
-      page,
-      frames: [...frames].concat(Array(nFrames - frames.length).fill(null)),
-      hit,
-      loaded,
-      replaced
-    });
+    steps.push({ step: i+1, page, frames: [...frames].concat(Array(nFrames-frames.length).fill(null)), hit, loaded, replaced });
   }
   return steps;
 }
 
 function runLRU(pages, nFrames) {
-  const frames = [];
-  const steps = [];
-  const recentUse = []; // track use order; last = most recent
-
+  const frames = [], steps = [], recent = [];
   for (let i = 0; i < pages.length; i++) {
     const page = pages[i];
-    let hit = frames.includes(page);
-    let replaced = null;
-    let loaded = null;
-
+    let hit = frames.includes(page), loaded = null, replaced = null;
     if (hit) {
-      // Update recency
-      const idx = recentUse.indexOf(page);
-      recentUse.splice(idx, 1);
-      recentUse.push(page);
+      recent.splice(recent.indexOf(page), 1); recent.push(page);
     } else {
-      if (frames.length < nFrames) {
-        frames.push(page);
-      } else {
-        // Evict least recently used (first in recentUse that's in frames)
+      if (frames.length < nFrames) { frames.push(page); }
+      else {
         let evict = null;
-        for (const p of recentUse) {
-          if (frames.includes(p)) { evict = p; break; }
-        }
-        replaced = evict;
-        frames[frames.indexOf(evict)] = page;
-        const idx = recentUse.indexOf(evict);
-        recentUse.splice(idx, 1);
+        for (const p of recent) { if (frames.includes(p)) { evict = p; break; } }
+        replaced = evict; frames[frames.indexOf(evict)] = page;
+        recent.splice(recent.indexOf(evict), 1);
       }
-      recentUse.push(page);
-      loaded = page;
+      recent.push(page); loaded = page;
     }
-
-    steps.push({
-      step: i + 1,
-      page,
-      frames: [...frames].concat(Array(nFrames - frames.length).fill(null)),
-      hit,
-      loaded,
-      replaced
-    });
+    steps.push({ step: i+1, page, frames: [...frames].concat(Array(nFrames-frames.length).fill(null)), hit, loaded, replaced });
   }
   return steps;
 }
 
-// ===================== UI =====================
-
 let selectedAlgo = 'fifo';
 
-const algoBtns = document.querySelectorAll('.algo-btn');
-algoBtns.forEach(btn => {
+document.querySelectorAll('.algo-tab').forEach(btn => {
   btn.addEventListener('click', () => {
-    algoBtns.forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.algo-tab').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     selectedAlgo = btn.dataset.algo;
   });
 });
 
-const algoDescriptions = {
-  fifo: '<strong>FIFO — First-In, First-Out:</strong> The page that has been in memory the longest is replaced first. Simple to implement using a queue, but can suffer from Bélády\'s anomaly where more frames can cause more faults.',
-  optimal: '<strong>OPT — Optimal Algorithm:</strong> Replaces the page that will not be used for the longest time in the future. This is theoretically optimal (fewest possible faults) but cannot be implemented in practice since future references are unknown. Used as a benchmark.',
-  lru: '<strong>LRU — Least Recently Used:</strong> Replaces the page that has not been used for the longest time in the past. A good approximation of Optimal in practice. More expensive to implement than FIFO but generally outperforms it.'
+const algoInfo = {
+  fifo: 'FIFO (First-In, First-Out): replaces the page that has been in memory the longest. Implemented with a simple queue. Easy to understand but can suffer from Bélády\'s anomaly.',
+  optimal: 'Optimal: replaces the page that will not be used for the longest time in the future. Produces the fewest possible page faults, but requires future knowledge — used as a theoretical benchmark.',
+  lru: 'LRU (Least Recently Used): replaces the page that has not been used for the longest time in the past. A strong practical approximation of Optimal, though more costly to implement than FIFO.'
 };
 
 function validate() {
-  let valid = true;
-  const refInput = document.getElementById('refString');
-  const frameInput = document.getElementById('numFrames');
-  const refErr = document.getElementById('refErr');
-  const frameErr = document.getElementById('frameErr');
+  let ok = true;
+  const rIn = document.getElementById('refString'), fIn = document.getElementById('numFrames');
+  const rErr = document.getElementById('refErr'), fErr = document.getElementById('frameErr');
+  [rIn,fIn].forEach(el => el.classList.remove('err'));
+  [rErr,fErr].forEach(el => el.classList.remove('show'));
 
-  refInput.classList.remove('error'); refErr.classList.remove('show');
-  frameInput.classList.remove('error'); frameErr.classList.remove('show');
+  const parts = rIn.value.trim().split(/\s+/).map(Number);
+  if (!rIn.value.trim() || parts.some(isNaN)) { rIn.classList.add('err'); rErr.classList.add('show'); ok = false; }
 
-  const refVal = refInput.value.trim();
-  const pages = refVal.split(/\s+/).map(Number);
+  const n = parseInt(fIn.value);
+  if (!n || n < 1 || n > 10) { fIn.classList.add('err'); fErr.classList.add('show'); ok = false; }
 
-  if (!refVal || pages.some(isNaN) || pages.length === 0) {
-    refInput.classList.add('error'); refErr.classList.add('show'); valid = false;
-  }
-
-  const nFrames = parseInt(frameInput.value);
-  if (!nFrames || nFrames < 1 || nFrames > 10) {
-    frameInput.classList.add('error'); frameErr.classList.add('show'); valid = false;
-  }
-
-  return valid ? { pages, nFrames } : null;
+  return ok ? { pages: parts, nFrames: n } : null;
 }
 
-function renderResults(steps, nFrames) {
+function render(steps, nFrames) {
   const faults = steps.filter(s => !s.hit).length;
   const hits = steps.filter(s => s.hit).length;
-  const ratio = (hits / steps.length * 100).toFixed(1);
-
   document.getElementById('statFaults').textContent = faults;
   document.getElementById('statHits').textContent = hits;
-  document.getElementById('statRatio').textContent = ratio + '%';
+  document.getElementById('statRatio').textContent = (hits / steps.length * 100).toFixed(1) + '%';
 
-  // Table header
-  const head = document.getElementById('tableHead');
-  let headerRow = '<tr><th>STEP</th><th>REF</th>';
-  for (let f = 0; f < nFrames; f++) headerRow += `<th>FRAME ${f+1}</th>`;
-  headerRow += '<th>STATUS</th></tr>';
-  head.innerHTML = headerRow;
+  let hdr = '<tr><th>Step</th><th>Ref</th>';
+  for (let f = 0; f < nFrames; f++) hdr += `<th>Frame ${f+1}</th>`;
+  hdr += '<th>Status</th></tr>';
+  document.getElementById('tableHead').innerHTML = hdr;
 
-  // Table body
-  const body = document.getElementById('tableBody');
   let rows = '';
   steps.forEach(s => {
-    const rowClass = s.hit ? 'row-hit' : 'row-fault';
-    rows += `<tr>`;
-    rows += `<td class="${rowClass}">${s.step}</td>`;
-    rows += `<td class="page-ref ${rowClass}">${s.page}</td>`;
+    const rc = s.hit ? 'is-hit' : 'is-fault';
+    rows += `<tr class="${rc}"><td>${s.step}</td><td class="ref-num">${s.page}</td>`;
     for (let f = 0; f < nFrames; f++) {
-      const val = s.frames[f];
-      let cellClass = rowClass;
-      if (val !== null && val === s.loaded) cellClass += ' new-page';
-      else if (val !== null && s.replaced !== null && val === s.loaded) cellClass += ' replaced';
-      rows += `<td class="frame-cell ${cellClass}">${val !== null ? val : '—'}</td>`;
+      const v = s.frames[f];
+      if (v === null) rows += `<td class="empty-cell">—</td>`;
+      else if (v === s.loaded) rows += `<td class="new-page">${v}</td>`;
+      else rows += `<td>${v}</td>`;
     }
     const badge = s.hit
-      ? `<span class="status-badge hit">HIT</span>`
-      : `<span class="status-badge fault">FAULT</span>`;
-    rows += `<td class="${rowClass}">${badge}</td>`;
-    rows += '</tr>';
+      ? '<span class="badge badge-hit">Hit</span>'
+      : '<span class="badge badge-fault">Fault</span>';
+    rows += `<td>${badge}</td></tr>`;
   });
-  body.innerHTML = rows;
+  document.getElementById('tableBody').innerHTML = rows;
 
-  // Algo info
   const info = document.getElementById('algoInfo');
-  info.innerHTML = algoDescriptions[selectedAlgo];
+  info.textContent = algoInfo[selectedAlgo];
   info.classList.add('show');
-
   document.getElementById('resultsSection').style.display = 'block';
 }
 
 document.getElementById('runBtn').addEventListener('click', () => {
-  const data = validate();
-  if (!data) return;
-
+  const d = validate(); if (!d) return;
   let steps;
-  if (selectedAlgo === 'fifo') steps = runFIFO(data.pages, data.nFrames);
-  else if (selectedAlgo === 'optimal') steps = runOptimal(data.pages, data.nFrames);
-  else steps = runLRU(data.pages, data.nFrames);
-
-  renderResults(steps, data.nFrames);
+  if (selectedAlgo === 'fifo') steps = runFIFO(d.pages, d.nFrames);
+  else if (selectedAlgo === 'optimal') steps = runOptimal(d.pages, d.nFrames);
+  else steps = runLRU(d.pages, d.nFrames);
+  render(steps, d.nFrames);
   document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
 
 document.getElementById('randomBtn').addEventListener('click', () => {
   const len = Math.floor(Math.random() * 8) + 10;
-  const pages = Array.from({ length: len }, () => Math.floor(Math.random() * 8));
-  document.getElementById('refString').value = pages.join(' ');
-  if (!document.getElementById('numFrames').value) {
-    document.getElementById('numFrames').value = 3;
-  }
+  document.getElementById('refString').value = Array.from({length: len}, () => Math.floor(Math.random() * 8)).join(' ');
+  if (!document.getElementById('numFrames').value) document.getElementById('numFrames').value = 3;
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
   document.getElementById('refString').value = '';
   document.getElementById('numFrames').value = '';
   document.getElementById('resultsSection').style.display = 'none';
-  document.getElementById('refString').classList.remove('error');
-  document.getElementById('numFrames').classList.remove('error');
-  document.getElementById('refErr').classList.remove('show');
-  document.getElementById('frameErr').classList.remove('show');
   document.getElementById('algoInfo').classList.remove('show');
+  ['refString','numFrames'].forEach(id => document.getElementById(id).classList.remove('err'));
+  ['refErr','frameErr'].forEach(id => document.getElementById(id).classList.remove('show'));
 });
 </script>
 </body>
 </html>
-
